@@ -141,6 +141,58 @@
 
     .qa { border-left: 4px solid #14b8a6; padding-left: 10px; margin: 10px 0; }
 
+    .timeline {
+      border-left: 3px solid #99f6e4;
+      margin: 8px 0;
+      padding-left: 14px;
+    }
+    .timeline .event {
+      margin: 8px 0;
+      padding: 8px 10px;
+      background: #f8fffe;
+      border: 1px solid #ccfbf1;
+      border-radius: 10px;
+    }
+    .kpi {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .kpi div {
+      border: 1px solid #d1fae5;
+      background: #ecfeff;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: .9rem;
+    }
+
+    .investigation-flow {
+      display: grid;
+      gap: 10px;
+    }
+    .flow-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      align-items: stretch;
+    }
+    .flow-box {
+      border: 1px solid #bfdbfe;
+      background: #f8fbff;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: .92rem;
+    }
+    .flow-box strong { color: #1e3a8a; }
+    .flow-arrow {
+      text-align: center;
+      font-weight: 800;
+      color: #0f766e;
+      letter-spacing: .5px;
+      margin: -2px 0;
+    }
+
     details {
       border: 1px solid var(--line);
       border-radius: 12px;
@@ -279,8 +331,40 @@
       </div>
     </section>
 
+    <section id="terms" class="panel">
+      <h2 class="section-title">D. 應該知道的專業術語（實務常用）</h2>
+      <p class="section-sub">這份術語表可作為跨部門溝通底稿，建議 IT、資安、主管使用同一套定義。</p>
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>術語</th><th>全名 / 中文</th><th>你要知道的重點</th></tr></thead>
+            <tbody>
+              <tr><td>IOC</td><td>Indicator of Compromise（入侵指標）</td><td>惡意 IP、網域、檔案雜湊等可觀察痕跡，可用於封鎖與追查。</td></tr>
+              <tr><td>TTP</td><td>Tactics, Techniques, and Procedures（戰術技術程序）</td><td>攻擊者行為模式；比單一 IOC 更耐用，適合長期偵測策略。</td></tr>
+              <tr><td>C2</td><td>Command and Control（命令與控制）</td><td>受害主機與攻擊者伺服器通訊通道，常見於資料外傳與遠端操控。</td></tr>
+              <tr><td>LOLBins</td><td>Living off the Land Binaries（系統原生工具濫用）</td><td>攻擊者濫用 PowerShell、certutil 等合法工具以躲避偵測。</td></tr>
+              <tr><td>SIEM</td><td>Security Information and Event Management</td><td>集中蒐集與關聯日誌，偏重監控與調查查詢能力。</td></tr>
+              <tr><td>SOAR</td><td>Security Orchestration, Automation and Response</td><td>把告警處理流程自動化（如自動開單、封鎖、通知）以降低人工作業。</td></tr>
+              <tr><td>SOC</td><td>Security Operations Center（資安監控中心）</td><td>負責 24/7 監控、分級、調查與應變的團隊或服務。</td></tr>
+              <tr><td>UEBA</td><td>User and Entity Behavior Analytics</td><td>分析使用者與設備行為基線，找出異常登入與可疑操作。</td></tr>
+              <tr><td>IAM</td><td>Identity and Access Management（身分與存取管理）</td><td>管理「誰可存取什麼」，是降低帳號濫用風險的核心。</td></tr>
+              <tr><td>IdP / SSO / MFA</td><td>身分提供者 / 單一登入 / 多因子驗證</td><td>三者常一起部署：統一身份、減少密碼疲勞、提升帳號安全。</td></tr>
+              <tr><td>DLP</td><td>Data Loss Prevention（資料外洩防護）</td><td>避免敏感資料透過郵件、雲端硬碟或 USB 外流。</td></tr>
+              <tr><td>CASB</td><td>Cloud Access Security Broker（雲端存取安全代理）</td><td>強化 SaaS 使用可視性與政策控管，降低 Shadow IT 風險。</td></tr>
+              <tr><td>MTTD / MTTR</td><td>Mean Time to Detect / Respond</td><td>衡量「發現速度」與「處置速度」，是 SOC 成熟度關鍵指標。</td></tr>
+              <tr><td>RTO / RPO</td><td>Recovery Time Objective / Recovery Point Objective</td><td>災難復原兩大指標：多久恢復、可容忍多少資料回溯。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card mini">
+        <strong>使用建議：</strong>每次事件檢討（Post-Incident Review）都用上述術語寫成統一報告模板，可明顯提升跨部門溝通效率。
+      </div>
+    </section>
+
+
     <section id="brands" class="panel">
-      <h2 class="section-title">D. 品牌比較（你指定的 4 家）</h2>
+      <h2 class="section-title">E. 品牌比較（你指定的 4 家）</h2>
       <p class="section-sub">以下整理偏「入門決策」角度，實際採購仍需 PoC 與授權評估。</p>
       <div class="card">
         <div class="table-wrap">
@@ -339,8 +423,80 @@
       </div>
     </section>
 
+    <section id="cases" class="panel">
+      <h2 class="section-title">F. 案例實戰：從告警到處置的完整流程</h2>
+      <p class="section-sub">以下案例用「實務事件節奏」呈現，方便用於內部教育與演練腳本。</p>
+
+      <div class="grid g2">
+        <div class="card">
+          <span class="tag brand">案例 1｜勒索軟體前兆攔截</span>
+          <h3>製造業 280 台端點（有 EDR，無 SOC 夜班）</h3>
+          <div class="timeline">
+            <div class="event"><strong>T+0 分：</strong>帳號收到釣魚附件，Word 啟動可疑 PowerShell。</div>
+            <div class="event"><strong>T+2 分：</strong>EDR 偵測到「Office → Script → Credential Dump」攻擊鏈，風險升級為 High。</div>
+            <div class="event"><strong>T+4 分：</strong>系統自動隔離端點，阻斷 SMB 橫向連線與可疑 C2 連線。</div>
+            <div class="event"><strong>T+25 分：</strong>IT 團隊依 SOP 完成密碼重設、IOC 封鎖與受影響檔案還原。</div>
+          </div>
+          <div class="kpi">
+            <div><strong>MTTD</strong><br>2 分鐘</div>
+            <div><strong>MTTR</strong><br>25 分鐘</div>
+            <div><strong>影響範圍</strong><br>1 台端點</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <span class="tag brand">案例 2｜雲端帳號遭入侵的跨域調查</span>
+          <h3>電商公司（導入 XDR + EDR + 郵件防護）</h3>
+          <div class="timeline">
+            <div class="event"><strong>T+0 分：</strong>客服信箱出現異常登入（海外 IP + 非常態裝置）。</div>
+            <div class="event"><strong>T+3 分：</strong>XDR 關聯到端點上的 token 竊取行為與可疑 OAuth 同意事件。</div>
+            <div class="event"><strong>T+8 分：</strong>自動撤銷 Session、停用高風險帳號並隔離相關端點。</div>
+            <div class="event"><strong>T+40 分：</strong>完成郵件規則清查與供應鏈通知，未造成客戶資料外洩。</div>
+          </div>
+          <div class="kpi">
+            <div><strong>關聯資料源</strong><br>端點 / 郵件 / IdP</div>
+            <div><strong>橫向移動</strong><br>0 次成功</div>
+            <div><strong>營運衝擊</strong><br>低</div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="card">
+        <h3>分析調查流程圖（SOC / IT 協作版）</h3>
+        <p class="section-sub">用這個流程可以把「收到告警後該做什麼」標準化，降低遺漏與誤判。</p>
+        <div class="investigation-flow">
+          <div class="flow-row">
+            <div class="flow-box"><strong>1. 告警接收與分級</strong><br>確認資產重要性、告警可信度、是否涉及關鍵帳號。</div>
+            <div class="flow-box"><strong>2. 初步驗證</strong><br>比對時間軸、程序樹、登入來源與 IOC 命中情況。</div>
+            <div class="flow-box"><strong>3. 事件定級</strong><br>依影響範圍與業務衝擊，分為 Low / Medium / High。</div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-row">
+            <div class="flow-box"><strong>4A. 高風險：立即遏止</strong><br>隔離端點、停權帳號、封鎖惡意網域 / IP、保全證據。</div>
+            <div class="flow-box"><strong>4B. 中低風險：持續追查</strong><br>擴大 Threat Hunting，確認是否有橫向移動與持久化。</div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-row">
+            <div class="flow-box"><strong>5. 根因分析（RCA）</strong><br>釐清入口點（釣魚、漏洞、弱密碼）與控制失效原因。</div>
+            <div class="flow-box"><strong>6. 復原與補強</strong><br>清除惡意程式、修補漏洞、重設憑證、更新偵測規則。</div>
+            <div class="flow-box"><strong>7. 事後檢討（PIR）</strong><br>更新 SOP 與 KPI（MTTD/MTTR），輸出可重複使用的劇本。</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>進階落地重點（給 IT 主管與資安窗口）</h3>
+        <ul>
+          <li><strong>以 MITRE ATT&CK 建立偵測覆蓋率：</strong>至少先覆蓋 Initial Access、Credential Access、Lateral Movement。</li>
+          <li><strong>建立量化 KPI：</strong>每月追蹤 MTTD、MTTR、誤報率、隔離成功率，避免只看告警數量。</li>
+          <li><strong>分級自動化策略：</strong>低風險告警自動關聯，高風險告警自動隔離 + 人工複核。</li>
+          <li><strong>把備份演練納入資安演練：</strong>確認 RTO/RPO 能符合營運要求，才算真正有韌性。</li>
+        </ul>
+      </div>
+    </section>
+
     <section id="resources" class="panel">
-      <h2 class="section-title">E. 進一步學習資源（入門友善）</h2>
+      <h2 class="section-title">G. 進一步學習資源（含進階路線）</h2>
       <div class="grid g2">
         <div class="card">
           <h3>公開框架與知識庫</h3>
@@ -349,6 +505,15 @@
             <li>MITRE ATT&CK（攻擊技術地圖）</li>
             <li>CISA 勒索軟體防護與事件回應指南</li>
           </ul>
+        </div>
+        <div class="card">
+          <h3>進階學習路線（90 天）</h3>
+          <ol>
+            <li><strong>第 1–3 週：</strong>建立 ATT&CK 對照表，盤點目前可見的攻擊技術。</li>
+            <li><strong>第 4–6 週：</strong>完成 2 個 Purple Team 劇本（勒索、帳號盜用）。</li>
+            <li><strong>第 7–9 週：</strong>調整偵測規則，將高誤報規則優化到可營運範圍。</li>
+            <li><strong>第 10–12 週：</strong>執行跨部門 Incident Drill，驗證通報與復原流程。</li>
+          </ol>
         </div>
         <div class="card">
           <h3>課後自我檢核</h3>
@@ -370,7 +535,9 @@
       ["starter", "共同語言"],
       ["compare", "差異比較"],
       ["mechanism", "EDR機制"],
+      ["terms", "專業術語"],
       ["brands", "品牌比較"],
+      ["cases", "案例實戰"],
       ["resources", "學習資源"]
     ];
 
