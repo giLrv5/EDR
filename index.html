@@ -141,6 +141,32 @@
 
     .qa { border-left: 4px solid #14b8a6; padding-left: 10px; margin: 10px 0; }
 
+    .timeline {
+      border-left: 3px solid #99f6e4;
+      margin: 8px 0;
+      padding-left: 14px;
+    }
+    .timeline .event {
+      margin: 8px 0;
+      padding: 8px 10px;
+      background: #f8fffe;
+      border: 1px solid #ccfbf1;
+      border-radius: 10px;
+    }
+    .kpi {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .kpi div {
+      border: 1px solid #d1fae5;
+      background: #ecfeff;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: .9rem;
+    }
+
     details {
       border: 1px solid var(--line);
       border-radius: 12px;
@@ -339,8 +365,57 @@
       </div>
     </section>
 
+    <section id="cases" class="panel">
+      <h2 class="section-title">E. 案例實戰：從告警到處置的完整流程</h2>
+      <p class="section-sub">以下案例用「實務事件節奏」呈現，方便用於內部教育與演練腳本。</p>
+
+      <div class="grid g2">
+        <div class="card">
+          <span class="tag brand">案例 1｜勒索軟體前兆攔截</span>
+          <h3>製造業 280 台端點（有 EDR，無 SOC 夜班）</h3>
+          <div class="timeline">
+            <div class="event"><strong>T+0 分：</strong>帳號收到釣魚附件，Word 啟動可疑 PowerShell。</div>
+            <div class="event"><strong>T+2 分：</strong>EDR 偵測到「Office → Script → Credential Dump」攻擊鏈，風險升級為 High。</div>
+            <div class="event"><strong>T+4 分：</strong>系統自動隔離端點，阻斷 SMB 橫向連線與可疑 C2 連線。</div>
+            <div class="event"><strong>T+25 分：</strong>IT 團隊依 SOP 完成密碼重設、IOC 封鎖與受影響檔案還原。</div>
+          </div>
+          <div class="kpi">
+            <div><strong>MTTD</strong><br>2 分鐘</div>
+            <div><strong>MTTR</strong><br>25 分鐘</div>
+            <div><strong>影響範圍</strong><br>1 台端點</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <span class="tag brand">案例 2｜雲端帳號遭入侵的跨域調查</span>
+          <h3>電商公司（導入 XDR + EDR + 郵件防護）</h3>
+          <div class="timeline">
+            <div class="event"><strong>T+0 分：</strong>客服信箱出現異常登入（海外 IP + 非常態裝置）。</div>
+            <div class="event"><strong>T+3 分：</strong>XDR 關聯到端點上的 token 竊取行為與可疑 OAuth 同意事件。</div>
+            <div class="event"><strong>T+8 分：</strong>自動撤銷 Session、停用高風險帳號並隔離相關端點。</div>
+            <div class="event"><strong>T+40 分：</strong>完成郵件規則清查與供應鏈通知，未造成客戶資料外洩。</div>
+          </div>
+          <div class="kpi">
+            <div><strong>關聯資料源</strong><br>端點 / 郵件 / IdP</div>
+            <div><strong>橫向移動</strong><br>0 次成功</div>
+            <div><strong>營運衝擊</strong><br>低</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>進階落地重點（給 IT 主管與資安窗口）</h3>
+        <ul>
+          <li><strong>以 MITRE ATT&CK 建立偵測覆蓋率：</strong>至少先覆蓋 Initial Access、Credential Access、Lateral Movement。</li>
+          <li><strong>建立量化 KPI：</strong>每月追蹤 MTTD、MTTR、誤報率、隔離成功率，避免只看告警數量。</li>
+          <li><strong>分級自動化策略：</strong>低風險告警自動關聯，高風險告警自動隔離 + 人工複核。</li>
+          <li><strong>把備份演練納入資安演練：</strong>確認 RTO/RPO 能符合營運要求，才算真正有韌性。</li>
+        </ul>
+      </div>
+    </section>
+
     <section id="resources" class="panel">
-      <h2 class="section-title">E. 進一步學習資源（入門友善）</h2>
+      <h2 class="section-title">F. 進一步學習資源（含進階路線）</h2>
       <div class="grid g2">
         <div class="card">
           <h3>公開框架與知識庫</h3>
@@ -349,6 +424,15 @@
             <li>MITRE ATT&CK（攻擊技術地圖）</li>
             <li>CISA 勒索軟體防護與事件回應指南</li>
           </ul>
+        </div>
+        <div class="card">
+          <h3>進階學習路線（90 天）</h3>
+          <ol>
+            <li><strong>第 1–3 週：</strong>建立 ATT&CK 對照表，盤點目前可見的攻擊技術。</li>
+            <li><strong>第 4–6 週：</strong>完成 2 個 Purple Team 劇本（勒索、帳號盜用）。</li>
+            <li><strong>第 7–9 週：</strong>調整偵測規則，將高誤報規則優化到可營運範圍。</li>
+            <li><strong>第 10–12 週：</strong>執行跨部門 Incident Drill，驗證通報與復原流程。</li>
+          </ol>
         </div>
         <div class="card">
           <h3>課後自我檢核</h3>
@@ -371,6 +455,7 @@
       ["compare", "差異比較"],
       ["mechanism", "EDR機制"],
       ["brands", "品牌比較"],
+      ["cases", "案例實戰"],
       ["resources", "學習資源"]
     ];
 
