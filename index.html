@@ -3,134 +3,394 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EDR / XDR / MDR 初步入門課程</title>
+  <title>EDR / XDR / MDR 入門學習地圖</title>
   <style>
-    :root { --bg:#f8fafc; --card:#fff; --text:#0f172a; --muted:#475569; --primary:#2563eb; --dark:#0f172a; }
-    *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans TC",sans-serif;background:var(--bg);color:var(--text)}
-    header{background:var(--dark);color:#fff;position:sticky;top:0;z-index:10;box-shadow:0 4px 14px rgba(0,0,0,.18)}
-    .container{max-width:1100px;margin:0 auto;padding:18px 16px}
-    h1{margin:0;font-size:1.7rem} .subtitle{margin:.35rem 0 0;color:#cbd5e1}
-    .tabs{display:flex;gap:8px;overflow:auto;padding:0 16px 12px;max-width:1100px;margin:0 auto}
-    .tab{border:0;background:#1e293b;color:#cbd5e1;padding:10px 14px;border-radius:10px 10px 0 0;cursor:pointer;white-space:nowrap}
-    .tab.active{background:var(--bg);color:var(--primary);font-weight:700}
-    main{max-width:1100px;margin:0 auto;padding:24px 16px 48px}
-    .panel{display:none;animation:fade .25s ease}.panel.active{display:block}
-    @keyframes fade{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
-    .card{background:var(--card);border:1px solid #e2e8f0;border-radius:16px;padding:18px;margin:14px 0;box-shadow:0 1px 2px rgba(0,0,0,.03)}
-    .grid{display:grid;gap:14px}.grid.cols-2{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}.grid.cols-3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-    .pill{display:inline-block;padding:4px 10px;border-radius:999px;background:#dbeafe;color:#1e40af;font-size:.85rem;font-weight:700}
-    table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden}
-    th,td{border-bottom:1px solid #e2e8f0;padding:14px;vertical-align:top;text-align:left}
-    th{background:#f1f5f9}
-    .scenario{background:#0f172a;color:#e2e8f0}.scenario h3{color:#60a5fa}
-    footer{background:#0f172a;color:#94a3b8;text-align:center;padding:20px}
+    :root {
+      --bg: #fffdf8;
+      --ink: #1f2937;
+      --sub: #4b5563;
+      --line: #eadfcb;
+      --brand: #0f766e;
+      --brand-soft: #ccfbf1;
+      --accent: #f59e0b;
+      --card: #ffffff;
+      --hero-a: #0f766e;
+      --hero-b: #f59e0b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+      color: var(--ink);
+      background: radial-gradient(circle at top right, #fef3c7 0, transparent 40%), var(--bg);
+      line-height: 1.7;
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+
+    header {
+      background: linear-gradient(120deg, var(--hero-a), #115e59 50%, var(--hero-b));
+      color: #fff;
+      padding: 36px 0 24px;
+      border-bottom: 4px solid rgba(255,255,255,.25);
+    }
+    .hero-title { margin: 0; font-size: 2rem; letter-spacing: .2px; }
+    .hero-sub { margin: 8px 0 0; opacity: .95; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .hero-box {
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 14px;
+      padding: 12px;
+      backdrop-filter: blur(2px);
+      font-size: .95rem;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+    }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      overflow: auto;
+      padding: 10px 0;
+    }
+    .tab {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #374151;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .tab.active {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+    }
+
+    main { padding: 24px 0 52px; }
+    .panel { display: none; }
+    .panel.active { display: block; animation: rise .22s ease; }
+    @keyframes rise { from { opacity: .4; transform: translateY(6px);} to {opacity:1; transform:none;} }
+
+    .section-title { margin: 8px 0 10px; font-size: 1.45rem; }
+    .section-sub { margin: 0 0 16px; color: var(--sub); }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.04);
+      margin: 12px 0;
+    }
+
+    .grid { display: grid; gap: 12px; }
+    .g2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .g3 { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+
+    .tag { display:inline-block; padding:2px 10px; border-radius:999px; font-size:.78rem; font-weight:700; }
+    .tag.brand { background: var(--brand-soft); color: #0f766e; }
+    .tag.warn { background: #ffedd5; color: #9a3412; }
+
+    .mini {
+      border: 1px dashed #d6c9b3;
+      border-radius: 12px;
+      padding: 10px;
+      background: #fffdf5;
+      font-size: .93rem;
+    }
+
+    .flow { counter-reset: step; }
+    .flow-item {
+      position: relative;
+      padding: 12px 12px 12px 56px;
+      border: 1px solid #d1fae5;
+      border-radius: 12px;
+      background: #f0fdfa;
+      margin: 10px 0;
+    }
+    .flow-item::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 14px; top: 11px;
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      display:flex; align-items:center; justify-content:center;
+      font-weight: 800;
+      color:#fff;
+      background: var(--brand);
+    }
+
+    .table-wrap { overflow: auto; border:1px solid var(--line); border-radius: 12px; }
+    table { width:100%; border-collapse: collapse; min-width: 860px; background:#fff; }
+    th, td { border-bottom:1px solid #efe6d6; padding:11px; vertical-align: top; text-align:left; font-size:.93rem; }
+    th { background: #fffbeb; color:#374151; }
+
+    .qa { border-left: 4px solid #14b8a6; padding-left: 10px; margin: 10px 0; }
+
+    details {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin: 8px 0;
+      background: #fff;
+    }
+    summary { cursor: pointer; font-weight: 700; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      background: #fff;
+      color: #6b7280;
+      text-align: center;
+      padding: 18px;
+      font-size: .88rem;
+    }
+
+    @media (max-width: 860px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: 1.55rem; }
+    }
   </style>
 </head>
 <body>
-<header>
-  <div class="container">
-    <h1>資安防護入門：EDR、XDR 與 MDR</h1>
-    <p class="subtitle">從傳統 AV 到行為式偵測的實務理解與品牌比較</p>
-  </div>
-  <div class="tabs" id="tabs"></div>
-</header>
-
-<main>
-  <section id="intro" class="panel active">
-    <div class="card">
-      <h2>1) 關鍵字完整名稱與定位</h2>
-      <div class="grid cols-2">
-        <div><strong>AV (Anti-Virus)</strong><br>傳統防毒軟體：以病毒特徵碼比對為主。</div>
-        <div><strong>EDR (Endpoint Detection and Response)</strong><br>端點偵測與回應：保護單一端點（電腦/伺服器）。</div>
-        <div><strong>XDR (Extended Detection and Response)</strong><br>延伸偵測與回應：整合端點、網路、雲端、郵件等訊號。</div>
-        <div><strong>MDR (Managed Detection and Response)</strong><br>託管偵測與回應：由外部 SOC 團隊 24/7 代管監控與應變。</div>
+  <header>
+    <div class="wrap">
+      <h1 class="hero-title">EDR / XDR / MDR 入門學習地圖</h1>
+      <p class="hero-sub">給非資安背景也看得懂的實務導向版本：先理解，再選型，最後能落地</p>
+      <div class="hero-grid">
+        <div class="hero-box">
+          <strong>你會學到：</strong> 名詞完整名稱、AV/防火牆/EDR 差異、現代攻擊流程、品牌比較、90 天導入建議。
+        </div>
+        <div class="hero-box">
+          <strong>適合對象：</strong> IT、MIS、主管、採購、剛接觸資安的人。
+        </div>
       </div>
     </div>
-    <div class="card">
-      <h2>2) 現代資安環境變化</h2>
-      <ul>
-        <li>零時差攻擊（Zero-day）增加，未知威脅比重上升。</li>
-        <li>勒索軟體由「單點加密」進化為「先潛伏、再橫向移動、最後雙重勒索」。</li>
-        <li>混合辦公讓端點常脫離企業內網，傳統邊界防護不足。</li>
-        <li>無檔案攻擊（Living-off-the-land）利用合法工具規避傳統掃毒。</li>
-      </ul>
-    </div>
-  </section>
+  </header>
 
-  <section id="compare" class="panel">
-    <div class="grid cols-2">
+  <nav>
+    <div class="wrap">
+      <div class="tabs" id="tabs"></div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section id="starter" class="panel active">
+      <h2 class="section-title">A. 一頁看懂：先建立共同語言</h2>
+      <p class="section-sub">先把縮寫背後的完整名稱釐清，後面才不會混淆。</p>
+      <div class="grid g2">
+        <article class="card"><span class="tag brand">AV</span><h3>Anti-Virus（傳統防毒軟體）</h3><p>以病毒特徵碼（Signature）為主，擅長已知惡意檔案，但對全新未知威脅反應較慢。</p></article>
+        <article class="card"><span class="tag brand">EDR</span><h3>Endpoint Detection and Response（端點偵測與回應）</h3><p>部署在端點主機上，持續蒐集行為紀錄，偵測異常並可執行隔離、終止程序等回應動作。</p></article>
+        <article class="card"><span class="tag brand">XDR</span><h3>Extended Detection and Response（延伸偵測與回應）</h3><p>把端點、網路、雲端、郵件、身分等資料關聯分析，讓事件調查更完整。</p></article>
+        <article class="card"><span class="tag brand">MDR</span><h3>Managed Detection and Response（託管偵測與回應）</h3><p>由外部專家團隊 24/7 代管監控與應變，適合資安人力不足的組織。</p></article>
+      </div>
+      <div class="card mini">
+        <strong>現在資安環境為什麼改變？</strong> 遠端辦公增加端點暴露、勒索攻擊工業化（RaaS）、無檔案攻擊上升、資料外洩與法規壓力並存。
+      </div>
+    </section>
+
+    <section id="compare" class="panel">
+      <h2 class="section-title">B. 差異比較：AV、防火牆、EDR 各自做什麼？</h2>
+      <div class="grid g2">
+        <div class="card">
+          <h3>AV vs EDR</h3>
+          <p><span class="tag warn">核心差異</span></p>
+          <ul>
+            <li><strong>AV：</strong>看「檔案像不像已知病毒」。</li>
+            <li><strong>EDR：</strong>看「行為是不是攻擊模式」。</li>
+            <li><strong>AV：</strong>多偏向預防；<strong>EDR：</strong>含偵測、調查、回應。</li>
+          </ul>
+          <div class="qa"><strong>入門重點：</strong>AV 不是沒用，而是單獨使用已不足以應對新型攻擊。</div>
+        </div>
+
+        <div class="card">
+          <h3>防火牆（Firewall） vs EDR</h3>
+          <ul>
+            <li><strong>防火牆：</strong>守網路邊界，管流量進出（外到內）。</li>
+            <li><strong>EDR：</strong>守每台主機內部，監看程序、命令、權限變化。</li>
+          </ul>
+          <div class="qa"><strong>最佳實務：</strong>防火牆 + EDR + 多因子驗證 + 備份還原 + 事件演練。</div>
+        </div>
+      </div>
+
       <div class="card">
-        <h2>AV vs EDR</h2>
-        <p class="pill">AV：Signature-based</p>
-        <p>像拿通緝照比對；變種與未知惡意程式容易漏報。</p>
-        <p class="pill">EDR：Behavior-based</p>
-        <p>持續監控程序、檔案、註冊表與連線，依異常行為判定威脅。</p>
+        <h3>快速選型建議（入門版）</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>情況</th><th>優先選擇</th><th>原因</th></tr></thead>
+            <tbody>
+              <tr><td>剛起步，先想保護端點不被勒索</td><td>EDR</td><td>最快建立端點可視性與隔離能力。</td></tr>
+              <tr><td>工具很多但告警很亂、跨系統難追查</td><td>XDR</td><td>把多來源訊號關聯，提升調查效率。</td></tr>
+              <tr><td>人力不足、無法 24/7 值班</td><td>MDR + EDR/XDR</td><td>借助外部 SOC 團隊補齊監控與應變。</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
+    </section>
+
+    <section id="mechanism" class="panel">
+      <h2 class="section-title">C. EDR 如何抓未知威脅？（最重要）</h2>
       <div class="card">
-        <h2>防火牆 vs EDR</h2>
-        <p><strong>防火牆 (Firewall)</strong>：守網路邊界，管進出流量與策略。</p>
-        <p><strong>EDR</strong>：守每台端點，偵測主機內部可疑行為並即時回應（隔離、終止、回復）。</p>
-        <p><em>關鍵差異：</em>防火牆重「邊界流量」，EDR重「端點行為」。兩者互補，不是取代關係。</p>
+        <div class="flow">
+          <div class="flow-item"><strong>持續監控：</strong>代理程式蒐集 Process、File、Registry、Network、Script、登入事件。</div>
+          <div class="flow-item"><strong>行為分析：</strong>用規則 + 情資 + 模型比對異常行為鏈，而不只看檔案簽名。</div>
+          <div class="flow-item"><strong>回應處置：</strong>終止惡意程序、隔離主機、封鎖 IOC、通知管理者進行調查。</div>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <section id="deepdive" class="panel">
-    <div class="card">
-      <h2>EDR 運作三階段</h2>
-      <ol>
-        <li><strong>持續監控與紀錄：</strong>蒐集端點遙測（process、file、registry、network）。</li>
-        <li><strong>行為分析：</strong>規則 + 機器學習 + 威脅情報關聯，識別異常模式。</li>
-        <li><strong>回應處置：</strong>終止程序、隔離主機、封鎖 hash/IOC、觸發調查流程。</li>
-      </ol>
-    </div>
-    <div class="card scenario">
-      <h3>情境：未知惡意 Word 啟動勒索行為</h3>
-      <p><strong>AV 反應：</strong>因無既有特徵碼，可能先放行。</p>
-      <p><strong>EDR 反應：</strong>偵測 Word 突然大量加密檔案與異常子程序鏈，快速終止 + 隔離端點。</p>
-    </div>
-  </section>
+      <div class="card">
+        <h3>情境模擬：全新惡意 Word 檔案（Zero-day）</h3>
+        <div class="grid g2">
+          <div class="mini">
+            <strong>傳統 AV 可能結果：</strong>
+            <ul>
+              <li>沒有特徵碼時可能先放行。</li>
+              <li>需等待雲端樣本分析與病毒庫更新。</li>
+            </ul>
+          </div>
+          <div class="mini">
+            <strong>EDR 可能結果：</strong>
+            <ul>
+              <li>發現 Word 啟動異常腳本與大量加密行為。</li>
+              <li>立即阻斷程序並隔離端點，降低擴散風險。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
-  <section id="brands" class="panel">
-    <div class="card">
-      <h2>3) 目前品牌比較（含代表產品）</h2>
-      <table>
-        <thead>
-          <tr><th>品牌</th><th>代表方案</th><th>特色</th><th>適用情境</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Palo Alto Networks</td><td>Cortex XDR</td><td>跨端點/網路資料關聯強，XDR 生態完整。</td><td>已有 Palo Alto 架構、追求整體可視性。</td></tr>
-          <tr><td>Acronis</td><td>Acronis Cyber Protect</td><td>EDR + 備份還原整合，勒索後復原能力佳。</td><td>重視業務連續性與快速還原。</td></tr>
-          <tr><td>Sophos</td><td>Intercept X / Sophos MDR</td><td>管理介面友善，MDR 服務成熟。</td><td>資安人力有限、需要代管服務。</td></tr>
-          <tr><td>SentinelOne</td><td>Singularity Platform</td><td>AI 自動化偵測/處置與回復能力強。</td><td>重視自動化與未知威脅防護。</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-</main>
+      <div class="card">
+        <h3>初學者常見誤解</h3>
+        <details><summary>有 EDR 就不用防火牆了嗎？</summary><p>不是。兩者防護層次不同，邊界與端點應同時部署。</p></details>
+        <details><summary>MDR 是產品還是服務？</summary><p>主要是服務，由外部團隊代管偵測與回應流程。</p></details>
+        <details><summary>XDR 一定比 EDR 好嗎？</summary><p>不一定。若你連端點治理都尚未成熟，先把 EDR 打好更務實。</p></details>
+      </div>
+    </section>
 
-<footer>© EDR / XDR / MDR 初步入門課程</footer>
+    <section id="brands" class="panel">
+      <h2 class="section-title">D. 品牌比較（你指定的 4 家）</h2>
+      <p class="section-sub">以下整理偏「入門決策」角度，實際採購仍需 PoC 與授權評估。</p>
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>品牌（完整名稱）</th>
+                <th>代表方案</th>
+                <th>入門亮點</th>
+                <th>導入注意</th>
+                <th>適合對象</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Palo Alto Networks</td>
+                <td>Cortex XDR</td>
+                <td>跨端點與網路關聯能力強，偏整合型平台。</td>
+                <td>需規劃整體架構與維運成熟度。</td>
+                <td>中大型企業、追求跨域可視性。</td>
+              </tr>
+              <tr>
+                <td>Acronis</td>
+                <td>Acronis Cyber Protect</td>
+                <td>把資安防護與備份還原整合，勒索復原有優勢。</td>
+                <td>需同時考量備份儲存策略與成本。</td>
+                <td>重視營運持續（BCP）的組織。</td>
+              </tr>
+              <tr>
+                <td>Sophos</td>
+                <td>Intercept X / Sophos MDR</td>
+                <td>管理門檻較友善，MDR 服務成熟。</td>
+                <td>方案層級不同，需確認功能範圍。</td>
+                <td>人力有限、希望快速上線的企業。</td>
+              </tr>
+              <tr>
+                <td>SentinelOne</td>
+                <td>Singularity Platform</td>
+                <td>強調 AI 自動化偵測與回應。</td>
+                <td>需做好初期政策調校，降低告警噪音。</td>
+                <td>重視自動化與快速反應的團隊。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-<script>
-  const tabData = [
-    ['intro', '基礎名詞與環境'],
-    ['compare', 'AV/防火牆比較'],
-    ['deepdive', 'EDR 深度解析'],
-    ['brands', '品牌比較表']
-  ];
-  const tabs = document.getElementById('tabs');
-  tabData.forEach(([id, label], i) => {
-    const b = document.createElement('button');
-    b.className = 'tab' + (i === 0 ? ' active' : '');
-    b.textContent = label;
-    b.onclick = () => {
-      document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-      document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
-      b.classList.add('active');
-      document.getElementById(id).classList.add('active');
-    };
-    tabs.appendChild(b);
-  });
-</script>
+      <div class="card">
+        <h3>90 天入門導入節奏（建議）</h3>
+        <div class="flow">
+          <div class="flow-item"><strong>第 1–2 週：</strong>盤點端點、系統版本、關鍵伺服器；決定試點群組。</div>
+          <div class="flow-item"><strong>第 3–6 週：</strong>PoC 比較（偵測率、誤報率、隔離流程、維運成本）。</div>
+          <div class="flow-item"><strong>第 7–10 週：</strong>擴大部署並建立事件分級、通報與工單流程。</div>
+          <div class="flow-item"><strong>第 11–12 週：</strong>做勒索/釣魚桌上演練，修正 SOP 與權責分工。</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="resources" class="panel">
+      <h2 class="section-title">E. 進一步學習資源（入門友善）</h2>
+      <div class="grid g2">
+        <div class="card">
+          <h3>公開框架與知識庫</h3>
+          <ul>
+            <li>NIST CSF 2.0（資安治理框架）</li>
+            <li>MITRE ATT&CK（攻擊技術地圖）</li>
+            <li>CISA 勒索軟體防護與事件回應指南</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>課後自我檢核</h3>
+          <ol>
+            <li>我能清楚說明 AV 與 EDR 的差異嗎？</li>
+            <li>我是否知道防火牆與 EDR 是互補關係？</li>
+            <li>若公司沒 24/7 人力，是否應評估 MDR？</li>
+            <li>我們是否有隔離、還原、通報 SOP？</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 EDR / XDR / MDR 入門學習地圖（靜態單頁）</footer>
+
+  <script>
+    const tabData = [
+      ["starter", "共同語言"],
+      ["compare", "差異比較"],
+      ["mechanism", "EDR機制"],
+      ["brands", "品牌比較"],
+      ["resources", "學習資源"]
+    ];
+
+    const tabs = document.getElementById("tabs");
+    const panels = document.querySelectorAll(".panel");
+
+    function switchTab(id, btn) {
+      panels.forEach(p => p.classList.remove("active"));
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      btn.classList.add("active");
+    }
+
+    tabData.forEach(([id, label], idx) => {
+      const b = document.createElement("button");
+      b.className = "tab" + (idx === 0 ? " active" : "");
+      b.textContent = label;
+      b.addEventListener("click", () => switchTab(id, b));
+      tabs.appendChild(b);
+    });
+  </script>
 </body>
 </html>
