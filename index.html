@@ -167,6 +167,32 @@
       font-size: .9rem;
     }
 
+    .investigation-flow {
+      display: grid;
+      gap: 10px;
+    }
+    .flow-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      align-items: stretch;
+    }
+    .flow-box {
+      border: 1px solid #bfdbfe;
+      background: #f8fbff;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: .92rem;
+    }
+    .flow-box strong { color: #1e3a8a; }
+    .flow-arrow {
+      text-align: center;
+      font-weight: 800;
+      color: #0f766e;
+      letter-spacing: .5px;
+      margin: -2px 0;
+    }
+
     details {
       border: 1px solid var(--line);
       border-radius: 12px;
@@ -305,8 +331,40 @@
       </div>
     </section>
 
+    <section id="terms" class="panel">
+      <h2 class="section-title">D. 應該知道的專業術語（實務常用）</h2>
+      <p class="section-sub">這份術語表可作為跨部門溝通底稿，建議 IT、資安、主管使用同一套定義。</p>
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>術語</th><th>全名 / 中文</th><th>你要知道的重點</th></tr></thead>
+            <tbody>
+              <tr><td>IOC</td><td>Indicator of Compromise（入侵指標）</td><td>惡意 IP、網域、檔案雜湊等可觀察痕跡，可用於封鎖與追查。</td></tr>
+              <tr><td>TTP</td><td>Tactics, Techniques, and Procedures（戰術技術程序）</td><td>攻擊者行為模式；比單一 IOC 更耐用，適合長期偵測策略。</td></tr>
+              <tr><td>C2</td><td>Command and Control（命令與控制）</td><td>受害主機與攻擊者伺服器通訊通道，常見於資料外傳與遠端操控。</td></tr>
+              <tr><td>LOLBins</td><td>Living off the Land Binaries（系統原生工具濫用）</td><td>攻擊者濫用 PowerShell、certutil 等合法工具以躲避偵測。</td></tr>
+              <tr><td>SIEM</td><td>Security Information and Event Management</td><td>集中蒐集與關聯日誌，偏重監控與調查查詢能力。</td></tr>
+              <tr><td>SOAR</td><td>Security Orchestration, Automation and Response</td><td>把告警處理流程自動化（如自動開單、封鎖、通知）以降低人工作業。</td></tr>
+              <tr><td>SOC</td><td>Security Operations Center（資安監控中心）</td><td>負責 24/7 監控、分級、調查與應變的團隊或服務。</td></tr>
+              <tr><td>UEBA</td><td>User and Entity Behavior Analytics</td><td>分析使用者與設備行為基線，找出異常登入與可疑操作。</td></tr>
+              <tr><td>IAM</td><td>Identity and Access Management（身分與存取管理）</td><td>管理「誰可存取什麼」，是降低帳號濫用風險的核心。</td></tr>
+              <tr><td>IdP / SSO / MFA</td><td>身分提供者 / 單一登入 / 多因子驗證</td><td>三者常一起部署：統一身份、減少密碼疲勞、提升帳號安全。</td></tr>
+              <tr><td>DLP</td><td>Data Loss Prevention（資料外洩防護）</td><td>避免敏感資料透過郵件、雲端硬碟或 USB 外流。</td></tr>
+              <tr><td>CASB</td><td>Cloud Access Security Broker（雲端存取安全代理）</td><td>強化 SaaS 使用可視性與政策控管，降低 Shadow IT 風險。</td></tr>
+              <tr><td>MTTD / MTTR</td><td>Mean Time to Detect / Respond</td><td>衡量「發現速度」與「處置速度」，是 SOC 成熟度關鍵指標。</td></tr>
+              <tr><td>RTO / RPO</td><td>Recovery Time Objective / Recovery Point Objective</td><td>災難復原兩大指標：多久恢復、可容忍多少資料回溯。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card mini">
+        <strong>使用建議：</strong>每次事件檢討（Post-Incident Review）都用上述術語寫成統一報告模板，可明顯提升跨部門溝通效率。
+      </div>
+    </section>
+
+
     <section id="brands" class="panel">
-      <h2 class="section-title">D. 品牌比較（你指定的 4 家）</h2>
+      <h2 class="section-title">E. 品牌比較（你指定的 4 家）</h2>
       <p class="section-sub">以下整理偏「入門決策」角度，實際採購仍需 PoC 與授權評估。</p>
       <div class="card">
         <div class="table-wrap">
@@ -366,7 +424,7 @@
     </section>
 
     <section id="cases" class="panel">
-      <h2 class="section-title">E. 案例實戰：從告警到處置的完整流程</h2>
+      <h2 class="section-title">F. 案例實戰：從告警到處置的完整流程</h2>
       <p class="section-sub">以下案例用「實務事件節奏」呈現，方便用於內部教育與演練腳本。</p>
 
       <div class="grid g2">
@@ -403,6 +461,29 @@
         </div>
       </div>
 
+
+      <div class="card">
+        <h3>分析調查流程圖（SOC / IT 協作版）</h3>
+        <p class="section-sub">用這個流程可以把「收到告警後該做什麼」標準化，降低遺漏與誤判。</p>
+        <div class="investigation-flow">
+          <div class="flow-row">
+            <div class="flow-box"><strong>1. 告警接收與分級</strong><br>確認資產重要性、告警可信度、是否涉及關鍵帳號。</div>
+            <div class="flow-box"><strong>2. 初步驗證</strong><br>比對時間軸、程序樹、登入來源與 IOC 命中情況。</div>
+            <div class="flow-box"><strong>3. 事件定級</strong><br>依影響範圍與業務衝擊，分為 Low / Medium / High。</div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-row">
+            <div class="flow-box"><strong>4A. 高風險：立即遏止</strong><br>隔離端點、停權帳號、封鎖惡意網域 / IP、保全證據。</div>
+            <div class="flow-box"><strong>4B. 中低風險：持續追查</strong><br>擴大 Threat Hunting，確認是否有橫向移動與持久化。</div>
+          </div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-row">
+            <div class="flow-box"><strong>5. 根因分析（RCA）</strong><br>釐清入口點（釣魚、漏洞、弱密碼）與控制失效原因。</div>
+            <div class="flow-box"><strong>6. 復原與補強</strong><br>清除惡意程式、修補漏洞、重設憑證、更新偵測規則。</div>
+            <div class="flow-box"><strong>7. 事後檢討（PIR）</strong><br>更新 SOP 與 KPI（MTTD/MTTR），輸出可重複使用的劇本。</div>
+          </div>
+        </div>
+      </div>
       <div class="card">
         <h3>進階落地重點（給 IT 主管與資安窗口）</h3>
         <ul>
@@ -415,7 +496,7 @@
     </section>
 
     <section id="resources" class="panel">
-      <h2 class="section-title">F. 進一步學習資源（含進階路線）</h2>
+      <h2 class="section-title">G. 進一步學習資源（含進階路線）</h2>
       <div class="grid g2">
         <div class="card">
           <h3>公開框架與知識庫</h3>
@@ -454,6 +535,7 @@
       ["starter", "共同語言"],
       ["compare", "差異比較"],
       ["mechanism", "EDR機制"],
+      ["terms", "專業術語"],
       ["brands", "品牌比較"],
       ["cases", "案例實戰"],
       ["resources", "學習資源"]
