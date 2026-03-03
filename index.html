@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EDR / XDR / MDR 初步入門課程</title>
+  <style>
+    :root { --bg:#f8fafc; --card:#fff; --text:#0f172a; --muted:#475569; --primary:#2563eb; --dark:#0f172a; }
+    *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans TC",sans-serif;background:var(--bg);color:var(--text)}
+    header{background:var(--dark);color:#fff;position:sticky;top:0;z-index:10;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+    .container{max-width:1100px;margin:0 auto;padding:18px 16px}
+    h1{margin:0;font-size:1.7rem} .subtitle{margin:.35rem 0 0;color:#cbd5e1}
+    .tabs{display:flex;gap:8px;overflow:auto;padding:0 16px 12px;max-width:1100px;margin:0 auto}
+    .tab{border:0;background:#1e293b;color:#cbd5e1;padding:10px 14px;border-radius:10px 10px 0 0;cursor:pointer;white-space:nowrap}
+    .tab.active{background:var(--bg);color:var(--primary);font-weight:700}
+    main{max-width:1100px;margin:0 auto;padding:24px 16px 48px}
+    .panel{display:none;animation:fade .25s ease}.panel.active{display:block}
+    @keyframes fade{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
+    .card{background:var(--card);border:1px solid #e2e8f0;border-radius:16px;padding:18px;margin:14px 0;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+    .grid{display:grid;gap:14px}.grid.cols-2{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}.grid.cols-3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .pill{display:inline-block;padding:4px 10px;border-radius:999px;background:#dbeafe;color:#1e40af;font-size:.85rem;font-weight:700}
+    table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden}
+    th,td{border-bottom:1px solid #e2e8f0;padding:14px;vertical-align:top;text-align:left}
+    th{background:#f1f5f9}
+    .scenario{background:#0f172a;color:#e2e8f0}.scenario h3{color:#60a5fa}
+    footer{background:#0f172a;color:#94a3b8;text-align:center;padding:20px}
+  </style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <h1>資安防護入門：EDR、XDR 與 MDR</h1>
+    <p class="subtitle">從傳統 AV 到行為式偵測的實務理解與品牌比較</p>
+  </div>
+  <div class="tabs" id="tabs"></div>
+</header>
+
+<main>
+  <section id="intro" class="panel active">
+    <div class="card">
+      <h2>1) 關鍵字完整名稱與定位</h2>
+      <div class="grid cols-2">
+        <div><strong>AV (Anti-Virus)</strong><br>傳統防毒軟體：以病毒特徵碼比對為主。</div>
+        <div><strong>EDR (Endpoint Detection and Response)</strong><br>端點偵測與回應：保護單一端點（電腦/伺服器）。</div>
+        <div><strong>XDR (Extended Detection and Response)</strong><br>延伸偵測與回應：整合端點、網路、雲端、郵件等訊號。</div>
+        <div><strong>MDR (Managed Detection and Response)</strong><br>託管偵測與回應：由外部 SOC 團隊 24/7 代管監控與應變。</div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>2) 現代資安環境變化</h2>
+      <ul>
+        <li>零時差攻擊（Zero-day）增加，未知威脅比重上升。</li>
+        <li>勒索軟體由「單點加密」進化為「先潛伏、再橫向移動、最後雙重勒索」。</li>
+        <li>混合辦公讓端點常脫離企業內網，傳統邊界防護不足。</li>
+        <li>無檔案攻擊（Living-off-the-land）利用合法工具規避傳統掃毒。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="compare" class="panel">
+    <div class="grid cols-2">
+      <div class="card">
+        <h2>AV vs EDR</h2>
+        <p class="pill">AV：Signature-based</p>
+        <p>像拿通緝照比對；變種與未知惡意程式容易漏報。</p>
+        <p class="pill">EDR：Behavior-based</p>
+        <p>持續監控程序、檔案、註冊表與連線，依異常行為判定威脅。</p>
+      </div>
+      <div class="card">
+        <h2>防火牆 vs EDR</h2>
+        <p><strong>防火牆 (Firewall)</strong>：守網路邊界，管進出流量與策略。</p>
+        <p><strong>EDR</strong>：守每台端點，偵測主機內部可疑行為並即時回應（隔離、終止、回復）。</p>
+        <p><em>關鍵差異：</em>防火牆重「邊界流量」，EDR重「端點行為」。兩者互補，不是取代關係。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="deepdive" class="panel">
+    <div class="card">
+      <h2>EDR 運作三階段</h2>
+      <ol>
+        <li><strong>持續監控與紀錄：</strong>蒐集端點遙測（process、file、registry、network）。</li>
+        <li><strong>行為分析：</strong>規則 + 機器學習 + 威脅情報關聯，識別異常模式。</li>
+        <li><strong>回應處置：</strong>終止程序、隔離主機、封鎖 hash/IOC、觸發調查流程。</li>
+      </ol>
+    </div>
+    <div class="card scenario">
+      <h3>情境：未知惡意 Word 啟動勒索行為</h3>
+      <p><strong>AV 反應：</strong>因無既有特徵碼，可能先放行。</p>
+      <p><strong>EDR 反應：</strong>偵測 Word 突然大量加密檔案與異常子程序鏈，快速終止 + 隔離端點。</p>
+    </div>
+  </section>
+
+  <section id="brands" class="panel">
+    <div class="card">
+      <h2>3) 目前品牌比較（含代表產品）</h2>
+      <table>
+        <thead>
+          <tr><th>品牌</th><th>代表方案</th><th>特色</th><th>適用情境</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Palo Alto Networks</td><td>Cortex XDR</td><td>跨端點/網路資料關聯強，XDR 生態完整。</td><td>已有 Palo Alto 架構、追求整體可視性。</td></tr>
+          <tr><td>Acronis</td><td>Acronis Cyber Protect</td><td>EDR + 備份還原整合，勒索後復原能力佳。</td><td>重視業務連續性與快速還原。</td></tr>
+          <tr><td>Sophos</td><td>Intercept X / Sophos MDR</td><td>管理介面友善，MDR 服務成熟。</td><td>資安人力有限、需要代管服務。</td></tr>
+          <tr><td>SentinelOne</td><td>Singularity Platform</td><td>AI 自動化偵測/處置與回復能力強。</td><td>重視自動化與未知威脅防護。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<footer>© EDR / XDR / MDR 初步入門課程</footer>
+
+<script>
+  const tabData = [
+    ['intro', '基礎名詞與環境'],
+    ['compare', 'AV/防火牆比較'],
+    ['deepdive', 'EDR 深度解析'],
+    ['brands', '品牌比較表']
+  ];
+  const tabs = document.getElementById('tabs');
+  tabData.forEach(([id, label], i) => {
+    const b = document.createElement('button');
+    b.className = 'tab' + (i === 0 ? ' active' : '');
+    b.textContent = label;
+    b.onclick = () => {
+      document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      document.getElementById(id).classList.add('active');
+    };
+    tabs.appendChild(b);
+  });
+</script>
+</body>
+</html>
