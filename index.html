@@ -249,6 +249,59 @@
         <article class="card"><span class="tag brand">XDR</span><h3>Extended Detection and Response（延伸偵測與回應）</h3><p>把端點、網路、雲端、郵件、身分等資料關聯分析，讓事件調查更完整。</p></article>
         <article class="card"><span class="tag brand">MDR</span><h3>Managed Detection and Response（託管偵測與回應）</h3><p>由外部專家團隊 24/7 代管監控與應變，適合資安人力不足的組織。</p></article>
       </div>
+      <div class="card">
+        <h3>MITRE ATT&amp;CK 精簡對照表（入門）</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>階段 / Technique</th>
+                <th>常見手法</th>
+                <th>可偵測訊號</th>
+                <th>建議控制（EDR/SIEM/MFA/網段隔離）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Initial Access</strong><br>T1566 Phishing</td>
+                <td>釣魚郵件誘導點擊連結或開啟惡意附件。</td>
+                <td>郵件來源異常、Office 啟動腳本、連到新註冊網域。</td>
+                <td>EDR 偵測 Office 子程序異常；SIEM 關聯郵件與端點事件；MFA 防帳號被盜用。</td>
+              </tr>
+              <tr>
+                <td><strong>Execution</strong><br>T1059 Command and Scripting Interpreter</td>
+                <td>PowerShell / cmd / bash 執行惡意腳本。</td>
+                <td>編碼指令、可疑參數（如 -enc）、父子程序鏈異常。</td>
+                <td>EDR 阻擋高風險腳本；SIEM 建立指令基線與告警；限制高權限終端可執行腳本。</td>
+              </tr>
+              <tr>
+                <td><strong>Persistence</strong><br>T1547</td>
+                <td>透過啟動項、登錄機碼或服務維持存活。</td>
+                <td>Run/RunOnce 新增、排程工作異常、未知服務常駐。</td>
+                <td>EDR 監控持久化行為；SIEM 追蹤設定變更；網段隔離關鍵伺服器降低橫向擴散。</td>
+              </tr>
+              <tr>
+                <td><strong>Credential Access</strong><br>T1003</td>
+                <td>Dump LSASS / SAM 取得帳密雜湊。</td>
+                <td>對 LSASS 記憶體存取、Mimikatz 特徵、異常提權行為。</td>
+                <td>EDR 阻擋憑證傾印；SIEM 監看高風險提權；MFA 降低帳密外洩後的成功登入率。</td>
+              </tr>
+              <tr>
+                <td><strong>Lateral Movement</strong><br>T1021</td>
+                <td>使用 RDP/SMB/WinRM 在內網橫向移動。</td>
+                <td>非慣常管理連線、夜間跨網段登入、同帳號多主機快速登入。</td>
+                <td>SIEM 偵測東西向流量異常；EDR 監控遠端工具濫用；網段隔離限制管理協定可達範圍。</td>
+              </tr>
+              <tr>
+                <td><strong>Exfiltration</strong><br>T1041</td>
+                <td>透過 C2 通道或雲端服務外傳資料。</td>
+                <td>異常大量上傳、罕見目的地連線、壓縮加密檔案後對外傳輸。</td>
+                <td>EDR/DLP 偵測敏感檔案外傳；SIEM 關聯流量與檔案存取；網段隔離與出口管制降低外傳成功率。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
       <div class="card mini">
         <strong>現在資安環境為什麼改變？</strong> 遠端辦公增加端點暴露、勒索攻擊工業化（RaaS）、無檔案攻擊上升、資料外洩與法規壓力並存。
       </div>
